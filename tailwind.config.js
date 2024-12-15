@@ -18,13 +18,13 @@ export default {
             "lightGray": "",
             "darkGray": "#7c7c7c",
             "primaryBlack": "#101010",
-            "secondaryBlack": "222222",
-            "darkBlue": "009BFF",
+            "secondaryBlack": "#222222",
+            "darkBlue": "#009BFF",
         },
         extend: {
             fontFamily: {
-                infinity: ["Made Infinity", 'sans-serif'],
-                fabio: ["FabioXM", 'sans-serif'],
+                infinity: ["MADE INFINITY Personal Use", 'sans-serif'],
+                fabio: ["Fabio XM", 'sans-serif'],
 
 
             }
