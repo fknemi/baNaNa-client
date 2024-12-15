@@ -10,6 +10,8 @@ export default {
 
     theme: {
         colors: {
+            transparent: 'transparent',
+            current: 'currentColor',
             "white": "#FFF",
             "offWhite": "#cfcfcf",
             "secondaryOffWhite": "#f2f2f2",
@@ -21,8 +23,8 @@ export default {
         },
         extend: {
             fontFamily: {
-                 infinity: ["Made Infinity", 'sans-serif'],
-                 fabio: ["FabioXM", 'sans-serif'],
+                infinity: ["Made Infinity", 'sans-serif'],
+                fabio: ["FabioXM", 'sans-serif'],
 
 
             }

@@ -20,6 +20,7 @@ import YourTickets from "./pages/your-tickets/YourTickets";
 import ProtectedLayout from './components/protectedLayout';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { NextUIProvider } from '@nextui-org/react'
+import Logout from "./pages/logout/Logout";
 const root = createRoot(document.getElementById('root'));
 
 root.render(
@@ -32,16 +33,17 @@ root.render(
                     domain="fknemi.eu.auth0.com"
                     clientId="huus5XI7136UMBwctpwnKzFOewWG5pkU"
                     authorizationParams={{
-                        redirect_uri: window.location.origin + "/dashboard"
-                    }}>
+                        redirect_uri: window.location.origin
+                    }}
+                >
 
                     <Routes>
                         <Route path="/" element={<Layout children={<Home />
                         } />} />
                         <Route path="/login"
-                            element={<Layout children={<Home />}
+                            element={<ProtectedLayout><Login /> </ProtectedLayout>}
 
-                            />} />
+                        />
                         <Route path="/dashboard"
                             element={<ProtectedLayout><Dashboard /> </ProtectedLayout>}
 
@@ -85,7 +87,9 @@ root.render(
                         <Route path="/support"
                             element={<Layout children={<Support />} />}
                         />
-
+                        <Route path="/logout"
+                            element={<Layout children={<Logout />} />}
+                        />
                     </Routes>
                 </Auth0Provider>
             </BrowserRouter>
