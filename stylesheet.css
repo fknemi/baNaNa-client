@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'Fabio XM';
+    src: url('FabioXM-Black.woff2') format('woff2'),
+        url('FabioXM-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fabio XM';
+    src: url('FabioXM-Light.woff2') format('woff2'),
+        url('FabioXM-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fabio XM';
+    src: url('FabioXM-Semibold.woff2') format('woff2'),
+        url('FabioXM-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fabio XM';
+    src: url('FabioXM-Medium.woff2') format('woff2'),
+        url('FabioXM-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fabio XM';
+    src: url('FabioXM-Regular.woff2') format('woff2'),
+        url('FabioXM-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fabio XM';
+    src: url('FabioXM-Bold.woff2') format('woff2'),
+        url('FabioXM-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MADE INFINITY Personal Use';
+    src: url('MADEINFINITYPersonalUse-Regular.woff2') format('woff2'),
+        url('MADEINFINITYPersonalUse-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MADE INFINITY Personal Use';
+    src: url('MADEINFINITYPersonalUse-Light.woff2') format('woff2'),
+        url('MADEINFINITYPersonalUse-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MADE INFINITY Personal Use';
+    src: url('MADEINFINITYPersonalUse-Black.woff2') format('woff2'),
+        url('MADEINFINITYPersonalUse-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MADE INFINITY Personal Use';
+    src: url('MADEINFINITYPersonalUse-Medium.woff2') format('woff2'),
+        url('MADEINFINITYPersonalUse-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'MADE INFINITY Personal Use';
+    src: url('MADEINFINITYPersonalUse-Thin.woff2') format('woff2'),
+        url('MADEINFINITYPersonalUse-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+

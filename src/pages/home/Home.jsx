@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button';
+import {Snippet} from "@nextui-org/snippet";
 function Home() {
 
     return (
         <>
-            Home
-        <Button variant="contained">Hello World</Button>
+ <Snippet>npm install @nextui-org/react</Snippet>
         </>
     )
 }

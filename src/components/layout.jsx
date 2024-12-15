@@ -1,6 +1,6 @@
+import "../../index.css"
 import Footer from "./footer"
 import Navbar from "./navbar"
-
 function Layout({ children }) {
 
     return <>
