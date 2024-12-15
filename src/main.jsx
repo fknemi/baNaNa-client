@@ -16,10 +16,10 @@ import SelectSeats from "./pages/select-seats/SelectSeats";
 import Support from "./pages/support/Support";
 import Ticket from "./pages/ticket/Ticket";
 import YourTickets from "./pages/your-tickets/YourTickets";
-
 import ProtectedLayout from './components/protectedLayout';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { NextUIProvider } from '@nextui-org/react'
+import { RecoilRoot } from "recoil";
 import Logout from "./pages/logout/Logout";
 const root = createRoot(document.getElementById('root'));
 
@@ -27,71 +27,72 @@ root.render(
 
     <StrictMode>
         <NextUIProvider >
-
             <BrowserRouter>
-                <Auth0Provider
-                    domain="fknemi.eu.auth0.com"
-                    clientId="huus5XI7136UMBwctpwnKzFOewWG5pkU"
-                    authorizationParams={{
-                        redirect_uri: window.location.origin
-                    }}
-                >
+                <RecoilRoot>
+                    <Auth0Provider
+                        domain="fknemi.eu.auth0.com"
+                        clientId="huus5XI7136UMBwctpwnKzFOewWG5pkU"
+                        authorizationParams={{
+                            redirect_uri: window.location.origin
+                        }}
+                    >
 
-                    <Routes>
-                        <Route path="/" element={<Layout children={<Home />
-                        } />} />
-                        <Route path="/login"
-                            element={<ProtectedLayout><Login /> </ProtectedLayout>}
+                        <Routes>
+                            <Route path="/" element={<Layout children={<Home />
+                            } />} />
+                            <Route path="/login"
+                                element={<ProtectedLayout><Login /> </ProtectedLayout>}
 
-                        />
-                        <Route path="/dashboard"
-                            element={<ProtectedLayout><Dashboard /> </ProtectedLayout>}
+                            />
+                            <Route path="/dashboard"
+                                element={<ProtectedLayout><Dashboard /> </ProtectedLayout>}
 
-                        />
+                            />
 
-                        <Route path="/city-select"
-                            element={<Layout children={<CitySelect />}
+                            <Route path="/city-select"
+                                element={<Layout children={<CitySelect />}
 
-                            />} />
-                        <Route path="/invoice"
-                            element={<ProtectedLayout><Invoice /> </ProtectedLayout>}
+                                />} />
+                            <Route path="/invoice"
+                                element={<ProtectedLayout><Invoice /> </ProtectedLayout>}
 
-                        />
-                        <Route path="/notifications"
-                            element={<ProtectedLayout><Notifications /> </ProtectedLayout>}
+                            />
+                            <Route path="/notifications"
+                                element={<ProtectedLayout><Notifications /> </ProtectedLayout>}
 
-                        />
-                        <Route path="/now-playing"
-                            element={<Layout children={<NowPlaying />}
+                            />
+                            <Route path="/now-playing"
+                                element={<Layout children={<NowPlaying />}
 
-                            />} />
-                        <Route path="/coming-soon"
-                            element={<Layout children={<ComingSoon />}
+                                />} />
+                            <Route path="/coming-soon"
+                                element={<Layout children={<ComingSoon />}
 
-                            />} />
-                        <Route path="/select-seats"
-                            element={<ProtectedLayout><SelectSeats /> </ProtectedLayout>}
+                                />} />
+                            <Route path="/select-seats"
+                                element={<ProtectedLayout><SelectSeats /> </ProtectedLayout>}
 
-                        />
-                        <Route path="/ticket"
-                            element={<Layout children={<Ticket />}
+                            />
+                            <Route path="/ticket"
+                                element={<Layout children={<Ticket />}
 
-                            />} />
-                        <Route path="/your-tickets"
-                            element={<ProtectedLayout><YourTickets /> </ProtectedLayout>}
+                                />} />
+                            <Route path="/your-tickets"
+                                element={<ProtectedLayout><YourTickets /> </ProtectedLayout>}
 
-                        />
-                        <Route path="/movie"
-                            element={<Layout children={Movie} />}
-                        />
-                        <Route path="/support"
-                            element={<Layout children={<Support />} />}
-                        />
-                        <Route path="/logout"
-                            element={<Layout children={<Logout />} />}
-                        />
-                    </Routes>
-                </Auth0Provider>
+                            />
+                            <Route path="/movie"
+                                element={<Layout children={Movie} />}
+                            />
+                            <Route path="/support"
+                                element={<Layout children={<Support />} />}
+                            />
+                            <Route path="/logout"
+                                element={<Layout children={<Logout />} />}
+                            />
+                        </Routes>
+                    </Auth0Provider>
+                </RecoilRoot>
             </BrowserRouter>
         </NextUIProvider>
 

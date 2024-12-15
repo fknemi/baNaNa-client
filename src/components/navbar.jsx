@@ -1,7 +1,12 @@
 import { Tabs, Tab } from "@nextui-org/react"
-import { useNavigate } from 'react-router-dom'
-function Navbar() {
+import { useLocation } from 'react-router'
+import { useRecoilState } from "recoil";
+import { currentNavTabKeyAtom } from "../statedrive/atoms";
+import { useEffect, useRef } from "react";
 
+function Navbar() {
+    const location = useLocation()
+    let [currentNavTabKey, setCurrentNavTabKey] = useRecoilState(currentNavTabKeyAtom);
     const links = [
         {
             name: "Home",
@@ -34,14 +39,32 @@ function Navbar() {
         },
 
     ]
-    const navigate = useNavigate()
-    return <nav>
+
+    useEffect(() => {
+        links.forEach((link) => {
+            if(link.path === location.pathname){
+                setCurrentNavTabKey(link.key)
+            }
+        }
+        );
+        setTimeout(() => {
+            console.log(currentNavTabKey)
+            console.log(location.pathname)
+        }, 4000)
+    }, []);
+
+
+
+    return <nav className="mt-10">
         <Tabs
             aria-label="Nav Links"
+            variant="light"
+    selectedKey={currentNavTabKey}
         >
             {
-                links.map(({ name, path, key }) => {
-                    return <Tab key={key} title={name} href={path} />
+                links.splice(0, 4).map(({ name, path, key }) => {
+                    const tabRef = useRef()
+                    return <Tab key={key} title={name} href={path} ref={tabRef} />
                 })
             }
         </Tabs>
