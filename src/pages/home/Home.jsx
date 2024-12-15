@@ -1,26 +1,11 @@
 import { Link } from "react-router";
 import { Link as NextLink, Button } from "@nextui-org/react";
-import { useRecoilState } from "recoil";
-import { useQuery } from "@tanstack/react-query";
+import MovieCard from "../../components/MovieCard";
+import { useRecoilValue } from "recoil";
 import { nowPlayingAtom } from "../../statedrive/atoms";
+
 function Home() {
-    const [nowPlaying, setNowPlaying] = useRecoilState(nowPlayingAtom)
-    const { isLoading, error, data } = useQuery({
-        queryKey: ['nowShowing'],
-
-        queryFn: async () => {
-            const res = await fetch('http://localhost:8080/get/movies/now-playing?location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
-                method: "get",
-            });
-            return res.json();
-        },
-        onSuccess: (data) => {
-            console.log(data)
-            setNowPlaying(data);
-        },
-    })
-
-
+    const nowPlaying = useRecoilValue(nowPlayingAtom)
 
     return (
         <>
@@ -79,7 +64,20 @@ function Home() {
 
 
 
+            <div className="flex flex-col items-center justify-center gap-8 text-white">
+                <h2 className="font-infinity text-4xl relative -left-20">
+                    Now Playing
+                </h2>
 
+                <div className="flex items-center justify-center flex-col sm:flex-col sm:flex-wrap gap-4">
+
+                    {
+                        nowPlaying.map(({ Poster, Title, Rating, Rated, imdbID }) => {
+                            return <MovieCard key={imdbID} imdbID={imdbID} title={Title} poster={Poster} rating={Rating} rated={Rated} />
+                        })
+                    }
+                </div>
+            </div>
 
 
 

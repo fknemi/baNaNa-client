@@ -70,8 +70,8 @@ root.render(
                     element={<ProtectedLayout><YourTickets /> </ProtectedLayout>}
 
                 />
-                <Route path="/movie"
-                    element={<Layout children={Movie} />}
+                <Route path="/movie/:id"
+                    element={<Layout children={<Movie />} />}
                 />
                 <Route path="/support"
                     element={<Layout children={<Support />} />}

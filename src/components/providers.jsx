@@ -22,24 +22,26 @@ function Providers({ children }) {
     });
 
 
-return <NextUIProvider >
-    <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
+    return <NextUIProvider >
+        <BrowserRouter>
             <RecoilRoot>
-                <Auth0Provider
-                    domain="fknemi.eu.auth0.com"
-                    clientId="huus5XI7136UMBwctpwnKzFOewWG5pkU"
-                    authorizationParams={{
-                        redirect_uri: window.location.origin
-                    }}
-                >
-                    {children}
 
-                </Auth0Provider>
+                <QueryClientProvider client={queryClient}>
+                    <Auth0Provider
+                        domain="fknemi.eu.auth0.com"
+                        clientId="huus5XI7136UMBwctpwnKzFOewWG5pkU"
+                        authorizationParams={{
+                            redirect_uri: window.location.origin
+                        }}
+                    >
+                        {children}
+
+                    </Auth0Provider>
+                </QueryClientProvider>
             </RecoilRoot>
-        </QueryClientProvider>
-    </BrowserRouter>
-</NextUIProvider>
+
+        </BrowserRouter>
+    </NextUIProvider>
 
 
 

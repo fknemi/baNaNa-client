@@ -48,8 +48,8 @@ function Navbar() {
         }
         );
         setTimeout(() => {
-            console.log(currentNavTabKey)
-            console.log(location.pathname)
+           // console.log(currentNavTabKey)
+            //console.log(location.pathname)
         }, 4000)
     }, []);
 
