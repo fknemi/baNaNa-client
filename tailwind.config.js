@@ -10,9 +10,23 @@ export default {
 
     theme: {
         colors: {
-
+            "white": "#FFF",
+            "offWhite": "#cfcfcf",
+            "secondaryOffWhite": "#f2f2f2",
+            "lightGray": "",
+            "darkGray": "#7c7c7c",
+            "primaryBlack": "#101010",
+            "secondaryBlack": "222222",
+            "darkBlue": "009BFF",
         },
-        extend: {},
+        extend: {
+            fontFamily: {
+                 infinity: ["Made Infinity", 'sans-serif'],
+                 fabio: ["FabioXM", 'sans-serif'],
+
+
+            }
+        },
     },
     darkMode: "class",
     plugins: [nextui()],
