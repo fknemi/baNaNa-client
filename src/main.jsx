@@ -6,6 +6,17 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Dashboard from './pages/dashboard/Dashboard';
 import Layout from './components/layout';
+import CitySelect from "./pages/city-select/CitySelect";
+import Invoice from "./pages/invoice/Invoice";
+import Movie from "./pages/movie/Movie";
+import Notifications from "./pages/notifications/Notifications";
+import NowPlaying from "./pages/now-playing/NowPlaying";
+import ComingSoon from "./pages/coming-soon/ComingSoon";
+import SelectSeats from "./pages/select-seats/SelectSeats";
+import Support from "./pages/support/Support";
+import Ticket from "./pages/ticket/Ticket";
+import YourTickets from "./pages/your-tickets/YourTickets";
+
 import ProtectedLayout from './components/protectedLayout';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { NextUIProvider } from '@nextui-org/react'
@@ -35,6 +46,46 @@ root.render(
                             element={<ProtectedLayout><Dashboard /> </ProtectedLayout>}
 
                         />
+
+                        <Route path="/city-select"
+                            element={<Layout children={<CitySelect />}
+
+                            />} />
+                        <Route path="/invoice"
+                            element={<ProtectedLayout><Invoice /> </ProtectedLayout>}
+
+                        />
+                        <Route path="/notifications"
+                            element={<ProtectedLayout><Notifications /> </ProtectedLayout>}
+
+                        />
+                        <Route path="/now-playing"
+                            element={<Layout children={<NowPlaying />}
+
+                            />} />
+                        <Route path="/coming-soon"
+                            element={<Layout children={<ComingSoon />}
+
+                            />} />
+                        <Route path="/select-seats"
+                            element={<ProtectedLayout><SelectSeats /> </ProtectedLayout>}
+
+                        />
+                        <Route path="/ticket"
+                            element={<Layout children={<Ticket />}
+
+                            />} />
+                        <Route path="/your-tickets"
+                            element={<ProtectedLayout><YourTickets /> </ProtectedLayout>}
+
+                        />
+                        <Route path="/movie"
+                            element={<Layout children={Movie} />}
+                        />
+                        <Route path="/support"
+                            element={<Layout children={<Support />} />}
+                        />
+
                     </Routes>
                 </Auth0Provider>
             </BrowserRouter>
