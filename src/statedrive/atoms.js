@@ -43,32 +43,32 @@ export const ticketsAtom = atom({
 
 export const nowPlayingAtom = atom({
     key: "nowPlaying",
-    default: ""
+    default: []
 
 })
 
 export const comingSoonAtom = atom({
     key: "comingSoon",
-    default: ""
+    default: []
 
 })
 
 export const promotionsAtom = atom({
     key: "promotions",
-    default: ""
+    default: []
 
 })
 
 export const actorsAtom = atom({
     key: "actors",
-    default: ""
+    default: []
 
 })
 
 
 export const cinemasAtom = atom({
     key: "cinemas",
-    default: ""
+    default: []
 
 })
 

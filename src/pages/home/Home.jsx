@@ -1,6 +1,26 @@
 import { Link } from "react-router";
 import { Link as NextLink, Button } from "@nextui-org/react";
+import { useRecoilState } from "recoil";
+import { useQuery } from "@tanstack/react-query";
+import { nowPlayingAtom } from "../../statedrive/atoms";
 function Home() {
+    const [nowPlaying, setNowPlaying] = useRecoilState(nowPlayingAtom)
+    const { isLoading, error, data } = useQuery({
+        queryKey: ['nowShowing'],
+
+        queryFn: async () => {
+            const res = await fetch('http://localhost:8080/get/movies/now-playing?location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
+                method: "get",
+            });
+            return res.json();
+        },
+        onSuccess: (data) => {
+            console.log(data)
+            setNowPlaying(data);
+        },
+    })
+
+
 
     return (
         <>
@@ -31,7 +51,6 @@ function Home() {
 
                     <div className="text-white font-infinity font-regular text-lg flex flex-row gap-8 items-center justify-center">
                         <Button
-                            showAnchorIcon={false}
                             className={"bg-secondaryBlack text-lg"}
                             radius={"full"}
                             as={Link}
