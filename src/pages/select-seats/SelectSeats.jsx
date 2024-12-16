@@ -1,168 +1,120 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Button } from "@nextui-org/react";
 import SeatPicker from 'react-seat-picker'
 
 function SelectSeats() {
     const [loading, setLoading] = useState(false)
-    const [selectedSeats, setSelectedSeats] = useState([]) // State to track selected seats
-    const [totalPrice, setTotalPrice] = useState(0) // State to track the total price
 
-    // Helper function to get seat price in rupees
-    const getSeatPrice = (row) => {
-        if (['A', 'B', 'C', 'D', 'E'].includes(row)) {
-            return 1500 // 15$ converted to INR (example conversion rate)
-        } else if (['F', 'G', 'H', 'I', 'J'].includes(row)) {
-            return 2000 // 20$ converted to INR
-        } else {
-            return 2500 // 25$ converted to INR
-        }
-    }
+    const [seats, setSeats] = useState([]); // Assuming `seats` is an array that holds all the seats.
+    const [selectedSeats, setSelectedSeats] = useState([]); // Holds selected seats.
 
     const addSeatCallback = ({ row, number, id }, addCb) => {
-        setLoading(true)
+        setLoading(true);
         setTimeout(() => {
-            console.log(`Added seat ${number}, row ${row}, id ${id}`)
-            const seatPrice = getSeatPrice(row)
-            const newTooltip = `Price: ₹${seatPrice}` // Tooltip with price in rupees
-            addCb(row, number, id, newTooltip)
+            console.log(`Added seat ${number}, row ${row}, id ${id}`);
+            const newTooltip = `tooltip for id-${id} added by callback`;
 
-            // Update selected seats and total price
-            setSelectedSeats((prevSeats) => [...prevSeats, { row, number, price: seatPrice }])
-            setTotalPrice((prevPrice) => prevPrice + seatPrice)
+            // Add the seat to the selectedSeats state
+            setSelectedSeats(prevSelectedSeats => [
+                ...prevSelectedSeats,
+                { row, number, id, tooltip: newTooltip }
+            ]);
 
-            setLoading(false)
-        }, 1500)
+            // Call the callback to add the seat
+            addCb(row, number, id, newTooltip);
+            setLoading(false);
+        }, 1500);
+    }
+
+    const addSeatCallbackContinuousCase = ({ row, number, id }, addCb, params, removeCb) => {
+        setLoading(true);
+        setTimeout(() => {
+            if (removeCb) {
+                setTimeout(() => {
+                    console.log(`Removed seat ${params.number}, row ${params.row}, id ${params.id}`);
+                    removeCb(params.row, params.number);
+                }, 750);
+            }
+            setTimeout(() => {
+                console.log(`Added seat ${number}, row ${row}, id ${id}`);
+                const newTooltip = `tooltip for id-${id} added by callback`;
+
+                // Add the seat to the selectedSeats state
+                setSelectedSeats(prevSelectedSeats => [
+                    ...prevSelectedSeats,
+                    { row, number, id, tooltip: newTooltip }
+                ]);
+
+                // Call the callback to add the seat
+                addCb(row, number, id, newTooltip);
+                setLoading(false);
+            }, 750);
+        }, 1500);
     }
 
     const removeSeatCallback = ({ row, number, id }, removeCb) => {
-        setLoading(true)
+        setLoading(true);
         setTimeout(() => {
-            console.log(`Removed seat ${number}, row ${row}, id ${id}`)
-            const seatPrice = getSeatPrice(row)
+            console.log(`Removed seat ${number}, row ${row}, id ${id}`);
 
-            removeCb(row, number)
+            // A value of null will reset the tooltip to the original while '' will hide the tooltip
+            const newTooltip = ['A', 'B', 'C'].includes(row) ? null : '';
 
-            // Remove the seat from selected seats and update total price
-            setSelectedSeats((prevSeats) =>
-                prevSeats.filter((seat) => !(seat.row === row && seat.number === number))
-            )
-            setTotalPrice((prevPrice) => prevPrice - seatPrice)
+            // Remove the seat from the selectedSeats state
+            setSelectedSeats(prevSelectedSeats =>
+                prevSelectedSeats.filter(seat => seat.id !== id)
+            );
 
-            setLoading(false)
-        }, 1500)
+            // Call the callback to remove the seat
+            removeCb(row, number, newTooltip);
+            setLoading(false);
+        }, 1500);
     }
 
-    // Theater layout: 11 rows and columns till H
+
+    useEffect(() => {
+        console.log(selectedSeats)
+    }, [selectedSeats])
+
     const rows = [
-        // Group 1 (A - E)
-        [
-            { id: 'A1', number: 1, tooltip: 'Cost: ₹1500' },
-            { id: 'A2', number: 2, tooltip: 'Cost: ₹1500' },
-            { id: 'A3', number: 3, tooltip: 'Cost: ₹1500' },
-            { id: 'A4', number: 4, tooltip: 'Cost: ₹1500' }
-        ],
-        [
-            { id: 'B1', number: 1, tooltip: 'Cost: ₹1500' },
-            { id: 'B2', number: 2, tooltip: 'Cost: ₹1500' },
-            { id: 'B3', number: 3, tooltip: 'Cost: ₹1500' },
-            { id: 'B4', number: 4, tooltip: 'Cost: ₹1500' }
-        ],
-        [
-            { id: 'C1', number: 1, tooltip: 'Cost: ₹1500' },
-            { id: 'C2', number: 2, tooltip: 'Cost: ₹1500' },
-            { id: 'C3', number: 3, tooltip: 'Cost: ₹1500' },
-            { id: 'C4', number: 4, tooltip: 'Cost: ₹1500' }
-        ],
-        [
-            { id: 'D1', number: 1, tooltip: 'Cost: ₹1500' },
-            { id: 'D2', number: 2, tooltip: 'Cost: ₹1500' },
-            { id: 'D3', number: 3, tooltip: 'Cost: ₹1500' },
-            { id: 'D4', number: 4, tooltip: 'Cost: ₹1500' }
-        ],
-        [
-            { id: 'E1', number: 1, tooltip: 'Cost: ₹1500' },
-            { id: 'E2', number: 2, tooltip: 'Cost: ₹1500' },
-            { id: 'E3', number: 3, tooltip: 'Cost: ₹1500' },
-            { id: 'E4', number: 4, tooltip: 'Cost: ₹1500' }
-        ],
+        // Front Rows (A, B, C)
+        [{ id: 1, number: 1, isSelected: true, tooltip: 'Reserved by you' }, { id: 2, number: 2, tooltip: 'Cost: 15$' }, { id: 3, number: 3, tooltip: 'Cost: 15$' }, { id: 4, number: 4, tooltip: 'Cost: 15$' }, { id: 5, number: 5 }, { id: 6, number: 6 }, { id: 7, number: 7 }, { id: 8, number: 8 }],
+        [{ id: 9, number: 1, tooltip: 'Reserved by Matthias' }, { id: 10, number: 2 }, { id: 11, number: 3 }, { id: 12, number: 4, tooltip: 'Reserved by Rogger' }, { id: 13, number: 5 }, { id: 14, number: 6 }, { id: 15, number: 7 }, { id: 16, number: 8 }],
+        [{ id: 17, number: 1 }, { id: 18, number: 2 }, { id: 19, number: 3 }, { id: 20, number: 4 }, { id: 21, number: 5 }, { id: 22, number: 6 }, { id: 23, number: 7 }, { id: 24, number: 8 }],
 
-        // Space between groups
-        [],
+        // Middle Rows (D, E, F)
+        [{ id: 25, number: 1, tooltip: 'Cost: 20$' }, { id: 26, number: 2 }, { id: 27, number: 3 }, { id: 28, number: 4 }, { id: 29, number: 5 }, { id: 30, number: 6 }, { id: 31, number: 7 }, { id: 32, number: 8 }],
+        [{ id: 33, number: 1 }, { id: 34, number: 2 }, { id: 35, number: 3 }, { id: 36, number: 4 }, { id: 37, number: 5 }, { id: 38, number: 6 }, { id: 39, number: 7 }, { id: 40, number: 8 }],
+        [{ id: 41, number: 1 }, { id: 42, number: 2 }, { id: 43, number: 3 }, { id: 44, number: 4 }, { id: 45, number: 5 }, { id: 46, number: 6 }, { id: 47, number: 7 }, { id: 48, number: 8 }],
 
-        // Group 2 (F - J)
-        [
-            { id: 'F1', number: 1, tooltip: 'Cost: ₹2000' },
-            { id: 'F2', number: 2, tooltip: 'Cost: ₹2000' },
-            { id: 'F3', number: 3, tooltip: 'Cost: ₹2000' },
-            { id: 'F4', number: 4, tooltip: 'Cost: ₹2000' }
-        ],
-        [
-            { id: 'G1', number: 1, tooltip: 'Cost: ₹2000' },
-            { id: 'G2', number: 2, tooltip: 'Cost: ₹2000' },
-            { id: 'G3', number: 3, tooltip: 'Cost: ₹2000' },
-            { id: 'G4', number: 4, tooltip: 'Cost: ₹2000' }
-        ],
-        [
-            { id: 'H1', number: 1, tooltip: 'Cost: ₹2000' },
-            { id: 'H2', number: 2, tooltip: 'Cost: ₹2000' },
-            { id: 'H3', number: 3, tooltip: 'Cost: ₹2000' },
-            { id: 'H4', number: 4, tooltip: 'Cost: ₹2000' }
-        ],
-        [
-            { id: 'I1', number: 1, tooltip: 'Cost: ₹2000' },
-            { id: 'I2', number: 2, tooltip: 'Cost: ₹2000' },
-            { id: 'I3', number: 3, tooltip: 'Cost: ₹2000' },
-            { id: 'I4', number: 4, tooltip: 'Cost: ₹2000' }
-        ],
-        [
-            { id: 'J1', number: 1, tooltip: 'Cost: ₹2000' },
-            { id: 'J2', number: 2, tooltip: 'Cost: ₹2000' },
-            { id: 'J3', number: 3, tooltip: 'Cost: ₹2000' },
-            { id: 'J4', number: 4, tooltip: 'Cost: ₹2000' }
-        ],
+        // Back Rows (G, H, I)
+        [{ id: 49, number: 1, tooltip: 'Cost: 25$' }, { id: 50, number: 2 }, { id: 51, number: 3 }, { id: 52, number: 4 }, { id: 53, number: 5 }, { id: 54, number: 6 }, { id: 55, number: 7 }, { id: 56, number: 8 }],
+        [{ id: 57, number: 1 }, { id: 58, number: 2 }, { id: 59, number: 3 }, { id: 60, number: 4 }, { id: 61, number: 5 }, { id: 62, number: 6 }, { id: 63, number: 7 }, { id: 64, number: 8 }],
+        [{ id: 65, number: 1 }, { id: 66, number: 2 }, { id: 67, number: 3 }, { id: 68, number: 4 }, { id: 69, number: 5 }, { id: 70, number: 6 }, { id: 71, number: 7 }, { id: 72, number: 8 }],
 
-        // Space between groups
-        [],
-
-        // Group 3 (K)
-        [
-            { id: 'K1', number: 1, tooltip: 'Cost: ₹2500' },
-            { id: 'K2', number: 2, tooltip: 'Cost: ₹2500' },
-            { id: 'K3', number: 3, tooltip: 'Cost: ₹2500' },
-            { id: 'K4', number: 4, tooltip: 'Cost: ₹2500' }
-        ]
+        // Last Rows (J, K)
+        [{ id: 73, number: 1 }, { id: 74, number: 2 }, { id: 75, number: 3 }, { id: 76, number: 4 }, { id: 77, number: 5 }, { id: 78, number: 6 }],
+        [{ id: 79, number: 1 }, { id: 80, number: 2 }, { id: 81, number: 3 }, { id: 82, number: 4 }, { id: 83, number: 5 }, { id: 84, number: 6 }]
     ]
 
     return (
-        <div className="flex flex-col w-screen items-center justify-center text-white ">
-
-            {/* Screen in front */}
-            <div>
+        <div className="flex flex-col w-full items-center justify-center text-white font-infinity">
+            <h1 className="text-xl font-medium">Screen Here</h1>
+            <div style={{ marginTop: '100px' }}>
+                <SeatPicker
+                    addSeatCallback={addSeatCallback}
+                    removeSeatCallback={removeSeatCallback}
+                    rows={rows}
+                    maxReservableSeats={3}
+                    alpha
+                    visible
+                    selectedByDefault
+                    loading={loading}
+                    tooltipProps={{ multiline: true }}
+                />
             </div>
 
-            {/* Displaying the text near the front */}
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <h3>Select Your Seats Below:</h3>
-            </div>
-
-            <SeatPicker
-                rows={rows}
-                addSeatCallback={addSeatCallback}
-                removeSeatCallback={removeSeatCallback}
-                loading={loading}
-            />
-
-            {/* Displaying the selected seats and total price */}
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <h4>Selected Seats:</h4>
-                <ul>
-                    {selectedSeats.map((seat, index) => (
-                        <li key={index}>
-                            Row {seat.row}, Seat {seat.number} - ₹{seat.price}
-                        </li>
-                    ))}
-                </ul>
-                <h3>Total Price: ₹{totalPrice}</h3>
-            </div>
+            <Button size="md" className="mt-10" href="/food-order">Continue</Button>
         </div>
     )
 }

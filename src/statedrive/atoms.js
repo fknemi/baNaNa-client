@@ -119,6 +119,14 @@ export const loggedInStatusAtom = atom({
 
 })
 
+export const selectedSeatsAtom = atom({
+    key: "selectedSeats",
+    default: [],
+    effects_UNSTABLE: [persistAtom]
+
+
+})
+
 
 
 

@@ -70,7 +70,7 @@ function Layout({ children }) {
             setComingSoon(data);
         },
     })
-    return <div className="w-lvh items-center align-center flex border-2 flex-col h-lvh gap-8">
+    return <div className="w-screen items-center align-center flex  flex-col h-screen gap-8">
         <Navbar />
         {children}
         <Footer />

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"; // Correct import for Link from react-router
-import { Button, Tabs, Tab } from "@nextui-org/react";
+import { Button, Tabs, Tab, Card, CardFooter, Image, } from "@nextui-org/react";
 import MovieCard from "../../components/MovieCard";
 import { useRecoilValue, useRecoilState } from "recoil"; // Use useRecoilState for setting state
 import { actorsAtom, comingSoonAtom, nowPlayingAtom, promotionsAtom } from "../../statedrive/atoms";
@@ -11,6 +11,7 @@ function Home() {
     const [promotions, setPromotions] = useRecoilState(promotionsAtom); // Fixed: use useRecoilState to set state
     const actors = useRecoilValue(actorsAtom);
     const [selectedPromotions, setSelectedPromotions] = useState([]); // Initialize as an empty array
+    const [isMediaSm, setIsMediaSm] = useState(false)
 
     const [currentPromotionCategory, setCurrentPromotionCategory] = useState("all");
     const [promotionCategories] = useState([
@@ -35,10 +36,17 @@ function Home() {
         }
     }, [currentPromotionCategory, promotions]);
 
+
+    useEffect(() => {
+        if (window.matchMedia('@media (min-width: 640px)')) {
+            setIsMediaSm(true)
+        }
+    }, [])
+
     return (
         <>
             <header className="flex flex-col gap-4 items-center justify-center">
-                <Link className="font-infinity text-white text-4xl font-medium" to="/">
+                <Link className="font-infinity text-white text-4xl sm:text-5xl font-medium" to="/">
                     <span className="font-fabio">L</span>umier
                 </Link>
 
@@ -46,7 +54,7 @@ function Home() {
                     <span className="absolute inline-flex w-72 h-64 blur-xl bg-darkBlue/10 -top-12 -right-2 rounded-full -rotate-45 z-50" />
                     <span className="absolute inline-flex w-24 h-12 blur-md bg-darkBlue/20 top-0 right-0" />
 
-                    <div className="text-4xl font-infinity flex flex-col items-center justify-center">
+                    <div className="text-4xl font-infinity flex flex-col items-center justify-center sm:text-5xl">
                         <h2 className="text-darkBlue font-medium">Book Your Seat</h2>
                         <h2 className="text-darkGray font-regular">From Anywhere</h2>
                     </div>
@@ -67,10 +75,17 @@ function Home() {
                 </div>
             </header>
 
-            <div className="flex flex-col items-center justify-center gap-8 text-white">
-                <h2 className="font-infinity text-4xl relative -left-20">Now Playing</h2>
-                <div className="flex items-center justify-center flex-col sm:flex-col sm:flex-wrap gap-4">
-                    {nowPlaying.slice(0, 4).map(({ Poster, Title, Rating, Rated, imdbID }) => {
+
+
+
+
+
+
+
+            <div className="flex flex-col items-center justify-center gap-8 text-white sm:w-full px-4">
+                <h2 className="font-infinity text-4xl relative -left-20 sm:text-5xl sm:left-0">Now Playing</h2>
+                <div className="flex items-center justify-center flex-col sm:flex-row gap-4  w-full sm:w-auto sm:items-top">
+                    {nowPlaying.slice(0, isMediaSm ? -1 : 4).map(({ Poster, Title, Rating, Rated, imdbID }) => {
                         return (
                             <MovieCard
                                 key={imdbID}
@@ -85,9 +100,13 @@ function Home() {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center gap-8 text-white">
-                <h2 className="font-infinity text-4xl relative -left-20">Coming Soon</h2>
-                <div className="flex items-center justify-center flex-col sm:flex-col sm:flex-wrap gap-4">
+
+
+
+
+            <div className="flex flex-col items-center justify-center gap-8 text-white sm:w-full px-4">
+                <h2 className="font-infinity text-4xl relative -left-20 sm:text-5xl sm:left-0">Coming Soon</h2>
+                <div className="flex items-center justify-center flex-col sm:flex-row gap-4  w-full sm:w-auto sm:items-top">
                     {comingSoon.slice(0, 4).map(({ Poster, Title, Rating, Rated, imdbID }) => {
                         return (
                             <MovieCard
@@ -117,12 +136,32 @@ function Home() {
                         <div>No promotions available</div>
                     ) : (
                         selectedPromotions.map(({ name, category, validity }) => {
-                            return (
-                                <div key={name} className="promotion-card">
-                                    <h3>{name}</h3>
-                                    <p>Category: {category}</p>
-                                    <p>Valid Until: {validity}</p>
-                                </div>
+                            console.log(name)
+                            return (<Card isFooterBlurred className="border-none" radius="lg">
+                                <Image
+                                    alt=""
+                                    className="object-cover"
+                                    height={200}
+                                    src={`http://localhost:8080/public/media/${name}.png`}
+                                    width={200}
+                                />
+                                <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
+                                    <p className="text-tiny text-white/80">{name}</p>
+                                    <Button
+                                        className="text-tiny text-white bg-black/20"
+                                        color="default"
+                                        radius="lg"
+                                        size="sm"
+                                        variant="flat"
+                                    >
+                                        {validity}
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+
+
+
+
                             );
                         })
                     )}
