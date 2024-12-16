@@ -1,8 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
+import React, { useEffect } from "react";
 
-function Logout (){
+function Logout() {
     const { logout } = useAuth0();
+  localStorage.removeItem("loggedin")
 
     return logout({
         logoutParams: {

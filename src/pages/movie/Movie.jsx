@@ -16,7 +16,7 @@ function Movie() {
         queryKey: ['showtimes'],
 
         queryFn: async () => {
-            const res = await fetch('http://localhost:8080/get/movies/showtimes?title=The+Wild+Robot&location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
+            const res = await fetch('http://banana-server-production.up.railway.app/get/movies/showtimes?title=The+Wild+Robot&location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
                 method: "get",
             });
             return res.json();

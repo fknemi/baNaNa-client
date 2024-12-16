@@ -14,7 +14,8 @@ function ProtectedLayout({ children }) {
         return <div>Oops... {error.message}</div>;
     }
     if (!isAuthenticated) {
-        //return loginWithPopup()
+        localStorage.setItem("loggedin", true)
+        return loginWithRedirect()
 
     }
 }

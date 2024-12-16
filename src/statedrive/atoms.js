@@ -3,6 +3,8 @@ import { atom } from "recoil";
 import { recoilPersist } from 'recoil-persist'
 const { persistAtom } = recoilPersist()
 
+let loginStatus = localStorage.getItem("loggedin") || false
+console.log(loginStatus)
 export const currentNavTabKeyAtom = atom({
     key: "currentNavTabKey",
     default: "home",
@@ -113,7 +115,7 @@ export const cinemasAtom = atom({
 
 export const loggedInStatusAtom = atom({
     key: "loggedInStatus",
-    default: false,
+    default: loginStatus || false,
     effects_UNSTABLE: [persistAtom]
 
 

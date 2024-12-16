@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"; // Correct import for Link from react-router
+import { Link, useNavigate } from "react-router-dom"; // Correct import for Link from react-router
 import { Button, Tabs, Tab, Card, CardFooter, Image, } from "@nextui-org/react";
 import MovieCard from "../../components/MovieCard";
 import { useRecoilValue, useRecoilState } from "recoil"; // Use useRecoilState for setting state
@@ -12,7 +12,7 @@ function Home() {
     const actors = useRecoilValue(actorsAtom);
     const [selectedPromotions, setSelectedPromotions] = useState([]); // Initialize as an empty array
     const [isMediaSm, setIsMediaSm] = useState(false)
-
+    const navigate = useNavigate()
     const [currentPromotionCategory, setCurrentPromotionCategory] = useState("all");
     const [promotionCategories] = useState([
         "all",
@@ -51,12 +51,12 @@ function Home() {
                 </Link>
 
                 <div className="relative flex flex-col gap-4">
-                    <span className="absolute inline-flex w-72 h-64 blur-xl bg-darkBlue/10 -top-12 -right-2 rounded-full -rotate-45 z-50" />
+                    <span className="absolute inline-flex w-72 h-64 blur-xl bg-darkBlue/10 -top-12 -right-2 rounded-full -rotate-45 -z-50" />
                     <span className="absolute inline-flex w-24 h-12 blur-md bg-darkBlue/20 top-0 right-0" />
 
                     <div className="text-4xl font-infinity flex flex-col items-center justify-center sm:text-5xl">
-                        <h2 className="text-darkBlue font-medium">Book Your Seat</h2>
-                        <h2 className="text-darkGray font-regular">From Anywhere</h2>
+                        <Link className="text-darkBlue font-medium" >Book Your Seat</Link>
+                        <Link className="text-darkGray font-regular" href="">From Anywhere</Link>
                     </div>
 
                     <div className="text-white font-infinity font-regular text-lg flex flex-row gap-8 items-center justify-center">
@@ -65,12 +65,12 @@ function Home() {
                             radius={"full"}
                             as={Link}
                             color="primary"
-                            to="/book-now"
+                            onPress={() => navigate("/now-showing")}
                             variant="solid"
                         >
                             Book Now
                         </Button>
-                        <Link to="/signup">Sign Up</Link>
+                        <Link to="/login">Sign Up</Link>
                     </div>
                 </div>
             </header>
@@ -84,7 +84,7 @@ function Home() {
 
             <div className="flex flex-col items-center justify-center gap-8 text-white sm:w-full px-4">
                 <h2 className="font-infinity text-4xl relative -left-20 sm:text-5xl sm:left-0">Now Playing</h2>
-                <div className="flex items-center justify-center flex-col sm:flex-row gap-4  w-full sm:w-auto sm:items-top">
+                <div className="flex items-center justify-center flex-col sm:flex-row gap-4 sm:flex=wrap w-screen  sm:items-top pl-12 sm:w-auto">
                     {nowPlaying.slice(0, isMediaSm ? -1 : 4).map(({ Poster, Title, Rating, Rated, imdbID }) => {
                         return (
                             <MovieCard
@@ -142,7 +142,7 @@ function Home() {
                                     alt=""
                                     className="object-cover"
                                     height={200}
-                                    src={`http://localhost:8080/public/media/${name}.png`}
+                                    src={`http://banana-server-production.up.railway.app/public/media/${name}.png`}
                                     width={200}
                                 />
                                 <CardFooter className="justify-between before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">

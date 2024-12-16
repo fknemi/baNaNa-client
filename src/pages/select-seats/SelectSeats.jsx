@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from "@nextui-org/react";
 import SeatPicker from 'react-seat-picker'
+import { useNavigate } from 'react-router';
+import { useRecoilState } from 'recoil';
+import { selectedSeatsAtom } from '../../statedrive/atoms';
 
 function SelectSeats() {
     const [loading, setLoading] = useState(false)
-
+    const navigate = useNavigate()
     const [seats, setSeats] = useState([]); // Assuming `seats` is an array that holds all the seats.
-    const [selectedSeats, setSelectedSeats] = useState([]); // Holds selected seats.
+    const [selectedSeats, setSelectedSeats] = useRecoilState(selectedSeatsAtom); // Holds selected seats.
 
     const addSeatCallback = ({ row, number, id }, addCb) => {
         setLoading(true);
@@ -114,7 +117,7 @@ function SelectSeats() {
                 />
             </div>
 
-            <Button size="md" className="mt-10" href="/food-order">Continue</Button>
+            <Button size="md" className="mt-10" onPress={() => navigate("/invoice")}>Continue</Button>
         </div>
     )
 }

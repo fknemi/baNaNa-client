@@ -15,7 +15,7 @@ function Layout({ children }) {
         queryKey: ['nowShowing'],
 
         queryFn: async () => {
-            const res = await fetch('http://localhost:8080/get/movies/now-playing?location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
+            const res = await fetch('http://banana-server-production.up.railway.app/movies/now-playing?location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
                 method: "get",
             });
             return res.json();
@@ -30,7 +30,7 @@ function Layout({ children }) {
         queryKey: ['comingSoon'],
 
         queryFn: async () => {
-            const res = await fetch('http://localhost:8080/get/movies/coming-soon?location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
+            const res = await fetch('http://banana-server-production.up.railway.app/get/movies/coming-soon?location=Indore, Madhya Pradesh, India&language=en&shortCountryCode=in', {
                 method: "get",
             });
             return res.json();
@@ -45,7 +45,7 @@ function Layout({ children }) {
         queryKey: ['promotions'],
 
         queryFn: async () => {
-            const res = await fetch('http://localhost:8080/get/movies/promotions', {
+            const res = await fetch('http://banana-server-production.up.railway.app/get/movies/promotions', {
                 method: "get",
             });
             return res.json();
@@ -60,7 +60,7 @@ function Layout({ children }) {
         queryKey: ['actors'],
 
         queryFn: async () => {
-            const res = await fetch('http://localhost:8080/get/movies/actors', {
+            const res = await fetch('http://banana-server-production.up.railway.app/get/movies/actors', {
                 method: "get",
             });
             return res.json();
