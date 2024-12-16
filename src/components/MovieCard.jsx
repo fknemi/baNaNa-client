@@ -2,10 +2,10 @@ import { Chip } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 import { useNavigate } from "react-router";
 function MovieCard({ poster, rating, rated, title, imdbID }) {
-const navigate = useNavigate()
+    const navigate = useNavigate()
 
-    return <div className="flex flex-col gap-2 border-2 border-white w-7/12 h-fit items-start justify-center cursor-pointer" onClick={() => {
-navigate(`/movie/${imdbID}`)
+    return <div className="flex flex-col gap-2 w-7/12 h-fit items-start justify-center cursor-pointer" onClick={() => {
+        navigate(`/movie/${imdbID}`)
     }}>
         <Image src={poster} width={200} height={300} className="aspect-auto" />
 

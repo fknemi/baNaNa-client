@@ -3,10 +3,11 @@ import { useLocation } from 'react-router'
 import { useRecoilState } from "recoil";
 import { currentNavTabKeyAtom } from "../statedrive/atoms";
 import { useEffect, useRef } from "react";
-
+import { useAuth0 } from "@auth0/auth0-react";
 function Navbar() {
-    const location = useLocation()
+    const { pathname } = useLocation()
     let [currentNavTabKey, setCurrentNavTabKey] = useRecoilState(currentNavTabKeyAtom);
+
     const links = [
         {
             name: "Home",
@@ -31,27 +32,8 @@ function Navbar() {
             key: "login",
             path: "/login",
         },
-        {
-            name: "Support",
-
-            key: "support",
-            path: "/support",
-        },
-
     ]
 
-    useEffect(() => {
-        links.forEach((link) => {
-            if(link.path === location.pathname){
-                setCurrentNavTabKey(link.key)
-            }
-        }
-        );
-        setTimeout(() => {
-           // console.log(currentNavTabKey)
-            //console.log(location.pathname)
-        }, 4000)
-    }, []);
 
 
 
@@ -59,11 +41,21 @@ function Navbar() {
         <Tabs
             aria-label="Nav Links"
             variant="light"
-    selectedKey={currentNavTabKey}
+            selectedKey={pathname}
         >
+
+
+
+
             {
                 links.splice(0, 4).map(({ name, path, key }) => {
                     const tabRef = useRef()
+                    const { isLoading, isAuthenticated } = useAuth0()
+
+                    if (!isLoading && isAuthenticated && name === "login") {
+return <Tab key={"dasboard"} title={"dashboard"} href={"/dashboard"} ref={tabRef} />
+
+                    }
                     return <Tab key={key} title={name} href={path} ref={tabRef} />
                 })
             }

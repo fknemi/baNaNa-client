@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from "react";
 import { useLocation} from "react-router"
 function ProtectedLayout({ children }) {
-    const { isLoading, isAuthenticated, error, loginWithRedirect } =
+    const { isLoading, isAuthenticated, error, loginWithRedirect,loginWithPopup } =
         useAuth0();
 
     if (isLoading) {
@@ -14,7 +14,7 @@ function ProtectedLayout({ children }) {
         return <div>Oops... {error.message}</div>;
     }
     if (!isAuthenticated) {
-        return loginWithRedirect()
+        //return loginWithPopup()
 
     }
 }

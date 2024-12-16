@@ -58,11 +58,11 @@ root.render(
                     element={<Layout children={<ComingSoon />}
 
                     />} />
-                <Route path="/select-seats"
-                    element={<ProtectedLayout><SelectSeats /> </ProtectedLayout>}
+                <Route path="/select-seats/:id"
+                    element={<SelectSeats />}
 
                 />
-                <Route path="/ticket"
+                <Route path="/ticket/:id"
                     element={<Layout children={<Ticket />}
 
                     />} />
